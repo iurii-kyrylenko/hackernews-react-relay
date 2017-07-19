@@ -5,11 +5,14 @@
   "dependencies": {
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-relay": "^1.1.0",
     "tachyons": "^4.7.4"
   },
   "devDependencies": {
+    "babel-plugin-relay": "^1.1.0",
     "graphcool": "^1.2.1",
-    "react-scripts": "1.0.10"
+    "react-scripts": "1.0.10",
+    "relay-compiler": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
