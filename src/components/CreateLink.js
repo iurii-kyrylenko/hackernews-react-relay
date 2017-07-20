@@ -35,7 +35,9 @@ class CreateLink extends React.Component {
 
   _createLink () {
     const { description, url } = this.state
-    CreateLinkMutation(description, url, () => console.log('-- mutation completed --'))
+    CreateLinkMutation(description, url, () =>
+      this.props.history.push('/')
+    )
   }
 }
 
