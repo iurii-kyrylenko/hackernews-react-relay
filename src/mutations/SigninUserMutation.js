@@ -5,28 +5,23 @@ import {
 import environment from '../Environment'
 
 const mutation = graphql`
-  mutation CreateLinkMutation($input: CreateLinkInput!) {
-    createLink(input: $input) {
-      link {
+  mutation SigninUserMutation($input: SigninUserInput!) {
+    signinUser(input: $input) {
+      token
+      user {
         id
-        createdAt
-        description
-        url
-      }
-      postedBy {
-        id
-        name
       }
     }
   }
 `
 
-export default (postedById, description, url, callback) => {
+export default (email, password, callback) => {
   const variables = {
     input: {
-      postedById,
-      description,
-      url,
+      email: {
+        email,
+        password
+      },
       clientMutationId: ''
     }
   }
@@ -36,7 +31,9 @@ export default (postedById, description, url, callback) => {
     {
       mutation,
       variables,
-      onCompleted: callback,
+      onCompleted: ({ signinUser: { user: { id }, token } }) => {
+        callback(id, token)
+      },
       onError: err => console.error(err)
     }
   )

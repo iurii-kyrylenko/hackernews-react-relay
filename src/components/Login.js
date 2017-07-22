@@ -1,5 +1,7 @@
 import React from 'react'
 import { GC_USER_ID, GC_AUTH_TOKEN } from '../constants'
+import CreateUserMutation from '../mutations/CreateUserMutation'
+import SigninUserMutation from '../mutations/SigninUserMutation'
 
 class Login extends React.Component {
   constructor () {
@@ -10,15 +12,23 @@ class Login extends React.Component {
       email: '',
       password: ''
     }
+    this._saveUserData = this._saveUserData.bind(this)
   }
 
   _confirm () {
-    console.log(this.state)
+    const { login, name, email, password } = this.state
+    if (!login) {
+      CreateUserMutation(name, email, password, this._saveUserData)
+    }
+    else {
+      SigninUserMutation(email, password, this._saveUserData)
+    }
   }
 
   _saveUserData (id, token) {
     localStorage.setItem(GC_USER_ID, id)
     localStorage.setItem(GC_AUTH_TOKEN, token)
+    this.props.history.push('/')
   }
 
   render () {
