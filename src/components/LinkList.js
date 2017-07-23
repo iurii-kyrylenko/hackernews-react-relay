@@ -11,8 +11,8 @@ class LinkList extends React.Component {
     return (
       <div>
       {
-        edges.map(({ node }) =>
-          <Link key={ node.__id } link={ node } />
+        edges.map(({ node }, index) =>
+          <Link key={ node.__id } index={ index } link={ node } />
         )
       }
       </div>
