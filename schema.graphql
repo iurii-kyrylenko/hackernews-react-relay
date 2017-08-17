@@ -526,6 +526,7 @@ type Link implements Node {
   updatedAt: DateTime!
   url: String!
   votes(filter: VoteFilter, orderBy: VoteOrderBy, skip: Int, after: String, before: String, first: Int, last: Int): VoteConnection
+  _votesMeta: _QueryMeta!
 }
 
 # A connection to a list of items.
@@ -1471,6 +1472,11 @@ enum VoteOrderBy {
   id_DESC
   updatedAt_ASC
   updatedAt_DESC
+}
+
+# Meta information about the query.
+type _QueryMeta {
+  count: Int!
 }
 
 type Subscription {
