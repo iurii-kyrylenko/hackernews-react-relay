@@ -4,11 +4,12 @@ import {
   RecordSource,
   Store
 } from 'relay-runtime'
+import { SubscriptionClient } from 'subscriptions-transport-ws'
 import { GC_AUTH_TOKEN } from './constants'
 
 const store = new Store(new RecordSource())
 
-const network = Network.create((operation, variables) => {
+const fetchQuery = (operation, variables) => {
   return fetch('https://api.graph.cool/relay/v1/cj5aygx77gtgu0113o7zcuxmw', {
     method: 'POST',
     headers: {
@@ -23,7 +24,20 @@ const network = Network.create((operation, variables) => {
   }).then(response => {
     return response.json()
   })
-})
+}
+
+const setupSubscription = (config, variables, cacheConfig, observer) => {
+  const query = config.text
+  const subscriptionClient = new SubscriptionClient(
+    'wss://subscriptions.graph.cool/v1/cj5aygx77gtgu0113o7zcuxmw',
+    { reconnect: true }
+  )
+  subscriptionClient.subscribe({ query, variables }, (error, result) => {
+    observer.onNext({ data: result })
+  })
+}
+
+const network = Network.create(fetchQuery, setupSubscription)
 
 const environment = new Environment({
   network,
