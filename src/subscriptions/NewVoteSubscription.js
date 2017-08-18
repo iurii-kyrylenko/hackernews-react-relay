@@ -6,7 +6,7 @@ import environment from '../Environment'
 
 const subscription = graphql`
   subscription NewVoteSubscription {
-    Vote {
+    Vote(filter: { mutation_in: [CREATED] }) {
       node {
         id
         user {

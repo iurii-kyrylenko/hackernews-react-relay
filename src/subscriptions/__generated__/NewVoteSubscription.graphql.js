@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash e50fc0193aae7dfa1915fe895fa44e30
+ * @relayHash c0785709f6765d90e5f939a19ba796ef
  */
 
 /* eslint-disable */
@@ -32,7 +32,7 @@ export type NewVoteSubscriptionResponse = {|
 
 /*
 subscription NewVoteSubscription {
-  Vote {
+  Vote(filter: {mutation_in: [CREATED]}) {
     node {
       id
       user {
@@ -59,7 +59,18 @@ const batch /*: ConcreteBatch*/ = {
       {
         "kind": "LinkedField",
         "alias": null,
-        "args": null,
+        "args": [
+          {
+            "kind": "Literal",
+            "name": "filter",
+            "value": {
+              "mutation_in": [
+                "CREATED"
+              ]
+            },
+            "type": "VoteSubscriptionFilter"
+          }
+        ],
         "concreteType": "VoteSubscriptionPayload",
         "name": "Vote",
         "plural": false,
@@ -137,7 +148,7 @@ const batch /*: ConcreteBatch*/ = {
             "storageKey": null
           }
         ],
-        "storageKey": null
+        "storageKey": "Vote{\"filter\":{\"mutation_in\":[\"CREATED\"]}}"
       }
     ],
     "type": "Subscription"
@@ -155,7 +166,18 @@ const batch /*: ConcreteBatch*/ = {
       {
         "kind": "LinkedField",
         "alias": null,
-        "args": null,
+        "args": [
+          {
+            "kind": "Literal",
+            "name": "filter",
+            "value": {
+              "mutation_in": [
+                "CREATED"
+              ]
+            },
+            "type": "VoteSubscriptionFilter"
+          }
+        ],
         "concreteType": "VoteSubscriptionPayload",
         "name": "Vote",
         "plural": false,
@@ -233,11 +255,11 @@ const batch /*: ConcreteBatch*/ = {
             "storageKey": null
           }
         ],
-        "storageKey": null
+        "storageKey": "Vote{\"filter\":{\"mutation_in\":[\"CREATED\"]}}"
       }
     ]
   },
-  "text": "subscription NewVoteSubscription {\n  Vote {\n    node {\n      id\n      user {\n        id\n      }\n      link {\n        id\n        _votesMeta {\n          count\n        }\n      }\n    }\n  }\n}\n"
+  "text": "subscription NewVoteSubscription {\n  Vote(filter: {mutation_in: [CREATED]}) {\n    node {\n      id\n      user {\n        id\n      }\n      link {\n        id\n        _votesMeta {\n          count\n        }\n      }\n    }\n  }\n}\n"
 };
 
 module.exports = batch;
